@@ -1,0 +1,19 @@
+{
+    "name": "bit-mx/saloon-response-factories",
+    "description": "Test saloon requests easily",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "BitMx\\SaloonResponseFactories\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jorge Enríquez",
+            "email": "44071711+jenriquez-bit@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
