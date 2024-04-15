@@ -242,3 +242,7 @@ it('overrides the headers with the headers array', function () {
     ]);
 
 });
+
+it('creates a response with custom status code', function () {
+    expect($this->factory->status(500)->create()->status())->toBe(500);
+});
