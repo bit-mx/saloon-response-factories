@@ -52,9 +52,9 @@ abstract class SaloonResponseFactory
     protected function newInstance(
         array $attributes = [],
         array $without = [],
-        int $status = 200,
+        ?int $status = null,
         array $headers = [],
-        int $times = 1,
+        ?int $times = null,
     ): static {
         return new static(
             attributes: array_replace_recursive(
@@ -65,9 +65,9 @@ abstract class SaloonResponseFactory
                 $this->without,
                 $without,
             ),
-            status: $status,
+            status: $status ?? $this->status,
             headers: array_replace_recursive($this->headers, $headers),
-            times: $times,
+            times: $times ?? $this->times,
         );
     }
 
