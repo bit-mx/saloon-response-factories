@@ -20,9 +20,70 @@ it('creates a new instance of SaloonResponseFactory', function () {
 });
 
 it('gets the definition from the factory', function () {
-
     expect($this->factory->create())->toBeInstanceOf(MockResponse::class)
         ->and($this->factory->create()->body()->all())->toBe(['name' => 'John Doe']);
+});
+
+it('gets the definition from the factory wrapped with wrap method', function () {
+    $factory = new class extends SaloonResponseFactory
+    {
+        public function definition(): array
+        {
+            return [
+                'name' => 'John Doe',
+            ];
+        }
+
+        public function defaultWrap(): string
+        {
+            return 'data';
+        }
+    };
+
+    expect($factory->create())->toBeInstanceOf(MockResponse::class)
+        ->and($factory->create()->body()->all())->toBe(['data' => ['name' => 'John Doe']]);
+});
+
+it('gets the definition from the factory wrapped with wrap method and metadata', function () {
+    $factory = new class extends SaloonResponseFactory
+    {
+        public function definition(): array
+        {
+            return [
+                'name' => 'John Doe',
+            ];
+        }
+
+        public function defaultWrap(): string
+        {
+            return 'data';
+        }
+
+        public function metadata(): array
+        {
+            return [
+                'metadata' => [
+                    'page' => 1,
+                    'total' => 10,
+                ],
+                'response' => [
+                    'status' => 'success',
+                ],
+            ];
+        }
+    };
+
+    expect($factory->create())->toBeInstanceOf(MockResponse::class)
+        ->and($factory->create()->body()->all())->toBe([
+            'data' => ['name' => 'John Doe'],
+            'metadata' => [
+                'page' => 1,
+                'total' => 10,
+            ],
+            'response' => [
+                'status' => 'success',
+            ],
+        ]);
 });
 
 it('creates a new state', function () {
@@ -38,6 +99,52 @@ it('creates a array with n times the definition', function () {
         ['name' => 'John Doe'],
         ['name' => 'John Doe'],
         ['name' => 'John Doe'],
+    ]);
+});
+
+it('creates a array with n times the definition wrapped with data', function () {
+
+    $factory = new class extends SaloonResponseFactory
+    {
+        public function definition(): array
+        {
+            return [
+                'name' => 'John Doe',
+            ];
+        }
+
+        public function defaultWrap(): string
+        {
+            return 'data';
+        }
+
+        public function metadata(): array
+        {
+            return [
+                'metadata' => [
+                    'page' => 1,
+                    'total' => 10,
+                ],
+                'response' => [
+                    'status' => 'success',
+                ],
+            ];
+        }
+    };
+
+    expect($factory->count(3)->create()->body()->all())->toBe([
+        'data' => [
+            ['name' => 'John Doe'],
+            ['name' => 'John Doe'],
+            ['name' => 'John Doe'],
+        ],
+        'metadata' => [
+            'page' => 1,
+            'total' => 10,
+        ],
+        'response' => [
+            'status' => 'success',
+        ],
     ]);
 });
 

@@ -25,6 +25,8 @@ This package requires Laravel 10.0 or higher and PHP 8.1 or higher.
 
 You can use factories to create fake data for your Saloon tests
 
+To create a factory you should extend the SaloonResponseFactory class and implement the definition method.
+
 ```php
 namespace Tests\SaloonResponseFactories;
 
@@ -46,8 +48,6 @@ class PostResponseFactoryFactory extends SaloonResponseFactory
 }
 ```
 
-To create a factory you should extend the SaloonResponseFactory class and implement the definition method.
-
 You can use the faker property to generate fake data.
 
 ```php
@@ -60,6 +60,104 @@ it('should get the post', function () {
     ]);
 });
 ```
+
+### Wrapping the response
+
+You can use the wrap method to wrap the response in a custom structure.
+
+```php
+namespace Tests\SaloonResponseFactories;
+
+use BitMx\SaloonResponseFactories\Factories\SaloonResponseFactory;
+
+class PostResponseFactoryFactory extends SaloonResponseFactory
+{
+    /**
+     * {@inheritDoc}
+     */
+    public function definition(): array
+    {
+        return [
+            'id' => $this->faker->unique()->randomNumber(),
+            'title' => $this->faker->sentence(),
+            'content' => $this->faker->paragraph(),
+        ];
+    }
+    
+    public function wrap(): string
+    {
+        return 'data';
+    }
+}
+```
+
+This create a response like this:
+
+```php
+
+\Saloon\Http\Faking\MockResponse::make([
+    'data' => [
+        'id' => 1,
+        'title' => 'Title 1',
+        'content' => 'Content 1',
+    ],
+]);
+```
+
+### Metadata
+
+You can use the metadata method to add metadata to the response.
+
+```php
+
+namespace Tests\SaloonResponseFactories;
+
+use BitMx\SaloonResponseFactories\Factories\SaloonResponseFactory;
+
+class PostResponseFactoryFactory extends SaloonResponseFactory
+{
+    /**
+     * {@inheritDoc}
+     */
+    public function definition(): array
+    {
+        return [
+            'id' => $this->faker->unique()->randomNumber(),
+            'title' => $this->faker->sentence(),
+            'content' => $this->faker->paragraph(),
+        ];
+    }
+    
+    public function wrap(): string{
+        return 'data';
+    }
+    
+    public function metadata(): array
+    {
+        return [
+            'total' => 10,
+        ];
+    }
+}
+```
+
+This creates a response like this:
+
+```php
+
+\Saloon\Http\Faking\MockResponse::make([
+    'data' => [
+        'id' => 1,
+        'title' => 'Title 1',
+        'content' => 'Content 1',
+    ],
+    'metadata' => [
+        'total' => 10,
+    ],
+]);
+```
+
+### Count
 
 You can also use the count method to create an array of fake data.
 
