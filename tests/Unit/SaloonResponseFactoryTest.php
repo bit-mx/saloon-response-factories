@@ -4,7 +4,8 @@ use BitMx\SaloonResponseFactories\Factories\SaloonResponseFactory;
 use Saloon\Http\Faking\MockResponse;
 
 beforeEach(function () {
-    $this->factory = new class extends SaloonResponseFactory {
+    $this->factory = new class extends SaloonResponseFactory
+    {
         public function definition(): array
         {
             return [
@@ -24,7 +25,8 @@ it('gets the definition from the factory', function () {
 });
 
 it('gets the definition from the factory wrapped with wrap method', function () {
-    $factory = new class extends SaloonResponseFactory {
+    $factory = new class extends SaloonResponseFactory
+    {
         public function definition(): array
         {
             return [
@@ -43,7 +45,8 @@ it('gets the definition from the factory wrapped with wrap method', function () 
 });
 
 it('gets the definition from the factory wrapped with wrap method and metadata', function () {
-    $factory = new class extends SaloonResponseFactory {
+    $factory = new class extends SaloonResponseFactory
+    {
         public function definition(): array
         {
             return [
@@ -101,7 +104,8 @@ it('creates a array with n times the definition', function () {
 
 it('creates a array with n times the definition wrapped with data', function () {
 
-    $factory = new class extends SaloonResponseFactory {
+    $factory = new class extends SaloonResponseFactory
+    {
         public function definition(): array
         {
             return [
@@ -186,7 +190,8 @@ it('overrides the definition with the attributes and the array on creates method
 });
 
 it('add headers to response', function () {
-    $factory = new class extends SaloonResponseFactory {
+    $factory = new class extends SaloonResponseFactory
+    {
         public function definition(): array
         {
             return [
@@ -207,7 +212,8 @@ it('add headers to response', function () {
 });
 
 it('overrides the headers with the headers array', function () {
-    $factory = new class extends SaloonResponseFactory {
+    $factory = new class extends SaloonResponseFactory
+    {
         public function definition(): array
         {
             return [
