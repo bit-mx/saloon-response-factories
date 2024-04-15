@@ -118,6 +118,8 @@ abstract class SaloonResponseFactory
             headers: $this->headers,
             without: $this->without,
             status: $this->status ?? 200,
+            wrap: $this->defaultWrap(),
+            metadata: $this->metadata(),
         );
     }
 
@@ -130,6 +132,19 @@ abstract class SaloonResponseFactory
      * @return array<array-key, mixed>
      */
     public function withHeaders(): array
+    {
+        return [];
+    }
+
+    public function defaultWrap(): string
+    {
+        return '';
+    }
+
+    /**
+     * @return array<array-key, mixed>
+     */
+    public function metadata(): array
     {
         return [];
     }
