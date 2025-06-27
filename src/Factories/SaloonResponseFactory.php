@@ -77,7 +77,7 @@ abstract class SaloonResponseFactory
     public static function new(
         array $attributes = [],
     ): static {
-        return (new static())->state($attributes)->newInstance();
+        return (new static)->state($attributes)->newInstance();
     }
 
     public function getTimes(): int
@@ -117,7 +117,7 @@ abstract class SaloonResponseFactory
             definedHeaders: $this->withHeaders(),
             headers: $this->headers,
             without: $this->without,
-            status: $this->status ?? 200,
+            status: $this->status,
             wrap: $this->defaultWrap(),
             metadata: $this->metadata(),
         );
