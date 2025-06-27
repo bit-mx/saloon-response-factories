@@ -21,8 +21,7 @@ class FactoryData
         private readonly int $status = 200,
         private readonly string $wrap = 'data',
         private readonly array $metadata = [],
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<array-key, mixed>
@@ -94,7 +93,7 @@ class FactoryData
     }
 
     /**
-     * @return array<array-key, mixed>
+     * @return array<string, bool|float|int|string>
      */
     public function getHeaders(): array
     {
