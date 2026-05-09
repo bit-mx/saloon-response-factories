@@ -13,7 +13,7 @@ abstract class SaloonResponseFactory
 
     /**
      * @param  array<array-key, mixed>  $attributes
-     * @param  array<array-key, mixed>  $without
+    * @param  array<int, int|string>  $without
      * @param  array<array-key, mixed>  $headers
      */
     final public function __construct(
@@ -46,7 +46,7 @@ abstract class SaloonResponseFactory
 
     /**
      * @param  array<array-key, mixed>  $attributes
-     * @param  array<array-key, mixed>  $without
+        * @param  array<int, int|string>  $without
      * @param  array<array-key, mixed>  $headers
      */
     protected function newInstance(
@@ -150,9 +150,9 @@ abstract class SaloonResponseFactory
     }
 
     /**
-     * @param  array<array-key, mixed>|string  $attributes
+        * @param  array<int, int|string>|int|string  $attributes
      */
-    final public function without(array|string $attributes): static
+    final public function without(array|string|int $attributes): static
     {
         return $this->newInstance(
             without: Arr::wrap($attributes),

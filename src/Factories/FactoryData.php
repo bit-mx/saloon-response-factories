@@ -9,7 +9,7 @@ class FactoryData
      * @param  array<array-key, mixed>  $attributes
      * @param  array<array-key, mixed>  $definedHeaders
      * @param  array<array-key, mixed>  $headers
-     * @param  array<array-key, mixed>  $without
+    * @param  array<int, int|string>  $without
      * @param  array<array-key, mixed>  $metadata
      */
     public function __construct(
@@ -72,7 +72,7 @@ class FactoryData
     }
 
     /**
-     * @return array<array-key, mixed>
+     * @return array<int, int|string>
      */
     public function getWithout(): array
     {
